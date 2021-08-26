@@ -1,0 +1,7 @@
+credentials.json
+servers.json
+bot-env
+__pycache__
+app.py
+chromedriver
+testapi
