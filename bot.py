@@ -77,7 +77,7 @@ async def getinfo(ctx, srv_no):
     except IndexError:
         await ctx.send("Such a entry do not exist")
 
-# @bot.event
+@bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, (commands.MissingRole, commands.MissingAnyRole)):
         await ctx.send("You are laking proper roles to run this command")

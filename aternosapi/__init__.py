@@ -95,25 +95,3 @@ class AternosAPI():
             "status": Status,
             "players": Players
         }
-
-        # if(Software in self.JavaSoftwares):
-        #     IP = ServerInfo.find('div', class_='server-ip mobile-full-width').get_text()
-        #     IP = IP.strip()
-        #
-        #     IP = IP.split(" ") /html/body/div[2]/main/section/div[3]/div[5]/div[2]/div[1]/div[1]/div[2]/div[2]
-        #     IP = IP[0].strip()
-        #
-        #     Port = "25565(Optional)"
-        #
-        #     # return f"{IP},{Port},{Software}"
-        #     return Software
-        #
-        # elif(Software in self.BedrockSoftwares):
-        #     IP = ServerInfo.find('span', id='ip').get_text()
-        #     IP = IP.strip()
-        #
-        #     Port = ServerInfo.find('span', id='port').get_text()
-        #     Port = Port.strip()
-        #
-        #     # return f"{IP},{Port},{Software}"
-        #     return Software
