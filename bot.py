@@ -36,7 +36,6 @@ async def start(ctx, srv_no):
         srv_name = list(servers.keys())[int(srv_no)-1]
         api = AternosAPI(servers[srv_name]["server_cookie"], credentials["common_cookies"])
         sresp = api.StartServer()
-        # print(str(sresp))
         if sresp != "something went wrong":
             await ctx.send(srv_name+" "+sresp)
         else :
@@ -54,7 +53,6 @@ async def stop(ctx, srv_no):
         srv_name = list(servers.keys())[int(srv_no)-1]
         api = AternosAPI(servers[srv_name]["server_cookie"], credentials["common_cookies"])
         sresp = api.StopServer()
-        # print(str(sresp))
         if sresp != "something went wrong":
             await ctx.send(srv_name+" "+sresp)
         else :
@@ -72,7 +70,6 @@ async def getinfo(ctx, srv_no):
         api = AternosAPI(servers[srv_name]["server_cookie"], credentials["common_cookies"])
         sresp = api.GetServerInfo()
         await ctx.send(srv_name+"\nIP: "+servers[srv_name]["ip"]+"\nPort: "+servers[srv_name]["port"]+"\nSoftware: "+sresp["software"]+"\nVersion: "+sresp["version"]+"\nPlayers: "+sresp["players"]+"\nStatus: "+sresp["status"])
-        # print(api.GetServerInfo())
         api.driver.quit()
     except IndexError:
         await ctx.send("Such a entry do not exist")

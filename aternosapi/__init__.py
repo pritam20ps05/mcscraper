@@ -12,9 +12,6 @@ chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument("--disable-dev-shm-usage")
 chrome_options.add_argument("--blink-settings=imagesEnabled=false")
 
-# driver.get("http://aternos.org/s")
-# for cookie in common_cookies:
-#     driver.add_cookie(common_cookies[cookie])
 
 class AternosAPI():
     def __init__(self, srvcookie, common_cookies):
@@ -27,19 +24,16 @@ class AternosAPI():
         self.driver.get("http://aternos.org/server")
 
     def GetStatus(self):
-        # print("status")
         status = self.driver.find_element(By.CLASS_NAME, "statuslabel-label").text
         self.driver.close()
         return status
 
     def StartServer(self):
-        # print("start")
         button = self.driver.find_element(By.ID, "start")
         if (status := self.driver.find_element(By.CLASS_NAME, "statuslabel-label")).text == "Offline":
             button.click()
             f = False
             while "Online" not in status.text: 
-                # print(status.text)
                 if "Waiting in queue" in status.text and not f:
                     WebDriverWait(self.driver, 100).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/main/div/div/div/header/span'))).click()
                     button = WebDriverWait(self.driver, 300).until(EC.element_to_be_clickable((By.ID, 'confirm')))
@@ -59,7 +53,6 @@ class AternosAPI():
             return "server is already online"
 
     def StopServer(self):
-        # print("stop")
         button = self.driver.find_element(By.ID, "stop")
         if (status := self.driver.find_element(By.CLASS_NAME, "statuslabel-label")).text == "Online":
             button.click()
@@ -75,7 +68,6 @@ class AternosAPI():
             return "server is already offline"
 
     def GetServerInfo(self):
-        # print("st")
 
         Software = self.driver.find_element(By.ID, "software").text
 
