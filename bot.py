@@ -3,7 +3,7 @@
 from discord.ext import commands
 from aternosapi import AternosAPI
 from os import getcwd
-from json import load
+from json import load, dumps
 
 with open(getcwd()+"/credentials.json") as creds:
     credentials = load(creds)
@@ -16,8 +16,17 @@ bot = commands.Bot(command_prefix='$')
 @bot.command(name="list-servers", pass_context=True, help="Lists available servers")
 async def list_servers(ctx):
     resp = []
-    for i, server in enumerate(list(servers.keys())):
+    api = AternosAPI(credentials["common_cookies"])
+
+    callback = api.ServerUpdate()
+    for i, server in enumerate(list(callback.keys())):
         resp.append(str(i+1)+": "+server)
+    api.driver.quit()
+
+    dump_data = dumps(callback, indent=4)
+    with open(getcwd()+"/servers.json", "w") as outfile:
+        outfile.write(dump_data)
+    
     await ctx.send("The registered servers are: \n"+"\n".join(resp))
 
 @bot.command(pass_context=True, help="States the current state of the mentioned server")

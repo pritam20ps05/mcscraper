@@ -26,6 +26,18 @@ class AternosAPI():
         else:
             self.driver.get("http://aternos.org/servers")
 
+    def ServerUpdate(self):
+        server_infos = self.driver.find_elements(By.CLASS_NAME, "server-infos")
+        sj = {}
+        for server_info in server_infos:
+            sj[server_info.find_element(By.CLASS_NAME, "server-title").find_element(By.CLASS_NAME, "server-name").text] = {
+                "server_cookie": {
+                    "name": "ATERNOS_SERVER",
+                    "value": server_info.find_element(By.CLASS_NAME, "server-details").find_element(By.CLASS_NAME, "server-id").text[1:]
+                }
+            }
+        return sj
+
     def GetStatus(self):
         status = self.driver.find_element(By.CLASS_NAME, "statuslabel-label").text
         self.driver.close()
