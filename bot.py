@@ -24,7 +24,7 @@ async def list_servers(ctx):
 async def status(ctx, srv_no):
     try:
         srv_name = list(servers.keys())[int(srv_no)-1]
-        api = AternosAPI(servers[srv_name]["server_cookie"], credentials["common_cookies"])
+        api = AternosAPI(credentials["common_cookies"], servers[srv_name]["server_cookie"])
         await ctx.send(srv_name+" server is curently "+api.GetStatus())
         api.driver.quit()
     except IndexError:
@@ -34,7 +34,7 @@ async def status(ctx, srv_no):
 async def start(ctx, srv_no):
     try:
         srv_name = list(servers.keys())[int(srv_no)-1]
-        api = AternosAPI(servers[srv_name]["server_cookie"], credentials["common_cookies"])
+        api = AternosAPI(credentials["common_cookies"], servers[srv_name]["server_cookie"])
         sresp = api.StartServer()
         if sresp != "something went wrong":
             await ctx.send(srv_name+" "+sresp)
@@ -51,7 +51,7 @@ async def start(ctx, srv_no):
 async def stop(ctx, srv_no):
     try:
         srv_name = list(servers.keys())[int(srv_no)-1]
-        api = AternosAPI(servers[srv_name]["server_cookie"], credentials["common_cookies"])
+        api = AternosAPI(credentials["common_cookies"], servers[srv_name]["server_cookie"])
         sresp = api.StopServer()
         if sresp != "something went wrong":
             await ctx.send(srv_name+" "+sresp)
@@ -67,14 +67,14 @@ async def stop(ctx, srv_no):
 async def getinfo(ctx, srv_no):
     try:
         srv_name = list(servers.keys())[int(srv_no)-1]
-        api = AternosAPI(servers[srv_name]["server_cookie"], credentials["common_cookies"])
+        api = AternosAPI(credentials["common_cookies"], servers[srv_name]["server_cookie"])
         sresp = api.GetServerInfo()
-        await ctx.send(srv_name+"\nIP: "+servers[srv_name]["ip"]+"\nPort: "+servers[srv_name]["port"]+"\nSoftware: "+sresp["software"]+"\nVersion: "+sresp["version"]+"\nPlayers: "+sresp["players"]+"\nStatus: "+sresp["status"])
+        await ctx.send(sresp["ip"].split(".")[0]+"\nIP: "+sresp["ip"]+"\nPort: "+sresp["port"]+"\nSoftware: "+sresp["software"]+"\nVersion: "+sresp["version"]+"\nPlayers: "+sresp["players"]+"\nStatus: "+sresp["status"])
         api.driver.quit()
     except IndexError:
         await ctx.send("Such a entry do not exist")
 
-@bot.event
+# @bot.event
 async def on_command_error(ctx, error):
     if isinstance(error, (commands.MissingRole, commands.MissingAnyRole)):
         await ctx.send("You are laking proper roles to run this command")

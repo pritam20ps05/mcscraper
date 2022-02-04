@@ -14,14 +14,17 @@ chrome_options.add_argument("--blink-settings=imagesEnabled=false")
 
 
 class AternosAPI():
-    def __init__(self, srvcookie, common_cookies):
+    def __init__(self, common_cookies, srvcookie=None):
         self.driver = uc.Chrome(options=chrome_options)
         self.driver.get("http://aternos.org/s")
         self.driver.delete_all_cookies()
         for cookie in common_cookies:
             self.driver.add_cookie(common_cookies[cookie])
-        self.driver.add_cookie(srvcookie)
-        self.driver.get("http://aternos.org/server")
+        if srvcookie:
+            self.driver.add_cookie(srvcookie)
+            self.driver.get("http://aternos.org/server")
+        else:
+            self.driver.get("http://aternos.org/servers")
 
     def GetStatus(self):
         status = self.driver.find_element(By.CLASS_NAME, "statuslabel-label").text
@@ -69,6 +72,8 @@ class AternosAPI():
 
     def GetServerInfo(self):
 
+        ipdata = self.driver.find_element(By.ID, "ip").text.split(":")
+
         Software = self.driver.find_element(By.ID, "software").text
 
         Version = self.driver.find_element(By.ID, "version").text
@@ -82,6 +87,8 @@ class AternosAPI():
         self.driver.close()
 
         return {
+            "ip": ipdata[0],
+            "port": ipdata[1],
             "software": Software,
             "version": Version,
             "status": Status,
