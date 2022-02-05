@@ -15,15 +15,16 @@ bot = commands.Bot(command_prefix='$')
 
 @bot.command(name="list-servers", pass_context=True, help="Lists available servers")
 async def list_servers(ctx):
+    global servers
     resp = []
     api = AternosAPI(credentials["common_cookies"])
 
-    callback = api.ServerUpdate()
-    for i, server in enumerate(list(callback.keys())):
+    servers = api.ServerUpdate()
+    for i, server in enumerate(list(servers.keys())):
         resp.append(str(i+1)+": "+server)
     api.driver.quit()
 
-    dump_data = dumps(callback, indent=4)
+    dump_data = dumps(servers, indent=4)
     with open(getcwd()+"/servers.json", "w") as outfile:
         outfile.write(dump_data)
     

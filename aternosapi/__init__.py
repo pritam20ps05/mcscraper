@@ -84,7 +84,11 @@ class AternosAPI():
 
     def GetServerInfo(self):
 
-        ipdata = self.driver.find_element(By.ID, "ip").text.split(":")
+        self.driver.find_element(By.XPATH, "/html/body/div[2]/main/section/div[3]/div[1]/div/a").click()
+        ipdata = self.driver.find_element(By.XPATH, "/html/body/div[2]/main/div/div/div/main").text.split("\n")
+
+        ip = ipdata[0].split(":")[1][1:]
+        port = ipdata[1].split(":")[1][1:]
 
         Software = self.driver.find_element(By.ID, "software").text
 
@@ -99,8 +103,8 @@ class AternosAPI():
         self.driver.close()
 
         return {
-            "ip": ipdata[0],
-            "port": ipdata[1],
+            "ip": ip,
+            "port": port,
             "software": Software,
             "version": Version,
             "status": Status,
