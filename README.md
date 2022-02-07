@@ -18,8 +18,8 @@ MCScraper is a server side friendly discord bot made on python with selenium and
 
 1. Server friendly
 2. Modularity(multiple servers can be controlled)
-3. does not have the token or cookie expiration problem like the other ones
-4. it never lies
+3. Does not have the token or cookie expiration problem like the other ones
+4. It never lies
 
 #### bot functions
 $list-servers: lists all the servers that it can control
@@ -66,7 +66,9 @@ for that first goto the [discord developers portal](https://discord.com/develope
 
 ![token copy example](https://user-images.githubusercontent.com/49360491/131206823-d65cd317-a04b-4cd8-a364-e9f950e011d9.png)
 
-then for connecting to your aternos account you need the cookies of that page. For that goto the [aternos servers page](https://aternos.org/servers/) => click on any of your servers => right click and click on inspect => goto application section and click on cookies => select https://aternos.org/ => copy and paste the cookies according to the names of them mentioned in credentials.json bellow. Don't worry if some of them are not present just leave them blank the crucial ones are ATERNOS_SESSION and PHPSESSID.
+then for connecting to your aternos account you need the cookies of that page. For that goto the [aternos servers page](https://aternos.org/servers/) => click on any of your servers => right click and click on inspect => goto application section and click on cookies => select https://aternos.org/ => copy and paste the cookies according to the names of them mentioned in credentials.json bellow. Only ATERNOS_SESSION is needed as rest are tracker cookies.
+
+**NOTE: You are seeing such kind of a format because of old code concept but currently this is the way to make the bot work. The following format might be updated later in future, till then use the given way only.**
 
 ![cookie copy example](https://user-images.githubusercontent.com/49360491/131207265-75a018e5-cf29-4e7c-a44f-08d39b1aa83a.png)
 
@@ -78,73 +80,36 @@ then for connecting to your aternos account you need the cookies of that page. F
     "one": {
       "name": "ATERNOS_SESSION",
       "value": ""
-    },
-    "three": {
-        "name": "_ga",
-        "value": ""
-    },
-    "four": {
-        "name": "_gid",
-        "value": ""
-    },
-    "five": {
-        "name": "PHPSESSID",
-        "value": ""
-    },
-    "six": {
-        "name": "_lr_env_src_ats",
-        "value": ""
-    },
-    "seven": {
-        "name": "__gads",
-        "value": ""
-    },
-    "eight": {
-        "name": "cnx_userId",
-        "value": ""
-    },
-    "nine": {
-        "name": "_pbjs_userid_consent_data",
-        "value": ""
-    },
-    "ten": {
-        "name": "_pubcid",
-        "value": ""
-    },
-    "eleven": {
-        "name": "_pubcid_sharedid",
-        "value": ""
     }
   }
 }
 ```
-to get the values in servers.json copy ATERNOS_SERVER cookie of every server you want to control and paste it accordingly with other info as shown in the snippet after the image.
-
-![server cookie example](https://user-images.githubusercontent.com/49360491/131207754-81a62fc1-4c18-4320-923d-600c989c2da3.png)
+**NOTE: The older way was to manually get the server ids and paste them but with the commit [3e6a63d](https://github.com/pritam20ps05/mcscraper/commit/3e6a63dfb6c0db60dca165192b0b4c1c94fd717e) the dynamic data updation system was added so please follow the new way.**    
+Keep the servers.json file empty but with a pair of curly braces just to make it json valid. Now after doing whatever is further instructed in this README, and then after starting the bot run the command $list-servers from discord, it will automatically update the file and give the bot control to all the servers you have access to.
 
 #### mcscraper/servers.json
 ```json
 {
-  "<server name>": {
-      "server_cookie": {
-          "name": "ATERNOS_SERVER",
-          "value": "<server cookie>"
-      },
-      "ip": "<server IP>",
-      "port": "<server port>"
-  },
-  "example": {
-      "server_cookie": {
-          "name": "ATERNOS_SERVER",
-          "value": "5dY6dRam4EXam2"
-      },
-      "ip": "example.aternos.me",
-      "port": "45240"
-  },
-  ...
 }
 ```
-
+After running the command $list-servers the servers.json file should look like this.
+```json
+{
+    "example1": {
+        "server_cookie": {
+            "name": "ATERNOS_SERVER",
+            "value": "E0uHgjBGkHogHqRk"
+        }
+    },
+    "example2": {
+        "server_cookie": {
+            "name": "ATERNOS_SERVER",
+            "value": "vFEfhTYfhxAOZTqI"
+        }
+    }
+    ...
+}
+```
 
 ## Usage
 
@@ -200,7 +165,7 @@ when bot is under load
 here the cpu load is bellow 60% but expect it to get higher because in some cases it also touches 98%.
 
 ## Contributing
-Feel free to contribute to it by forking or just use the code but please maintain the guidlines under the GPL 3.0 LICENSE.
+Feel free to contribute to it by forking or just use the code but please maintain the guidlines under the GPL 3.0 LICENSE. Also pull requests are always welcome.
 
 ## License
 [GPL 3.0](https://github.com/pritam20ps05/mcscraper/blob/master/LICENSE)
