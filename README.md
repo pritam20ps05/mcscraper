@@ -79,7 +79,7 @@ then for connecting to your aternos account you need the cookies of that page. F
   "common_cookies": {
     "one": {
       "name": "ATERNOS_SESSION",
-      "value": ""
+      "value": "<Your aternos session cookie>"
     }
   }
 }
