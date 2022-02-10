@@ -2,16 +2,10 @@
 
 MCScraper is a server side friendly discord bot made on python with selenium and undetected-chromedriver to ease the process of managing free aternos servers from discord guild text channels. To achieve this it uses selenium as its main driver api and to disable cloudflare detection it uses undetected-chromedriver. This bot will require to connect to your aternos account through cookies and can control all the servers to which you have proper permissions.
 
-## Dependencies
-
 [![](https://img.shields.io/badge/discord.py-v1.7.3-blue)](https://discordpy.readthedocs.io/en/stable/)
-
 [![](https://img.shields.io/badge/selenium-v4.0.0b4-green)](https://selenium-python.readthedocs.io/)
-
 [![](https://img.shields.io/badge/undetected--chromedriver-v3.0.3-pink)](https://github.com/ultrafunkamsterdam/undetected-chromedriver)
-
 [![](https://img.shields.io/badge/Google%20Chrome-v92.0.4515.159-yellow)](https://www.google.com/intl/en_in/chrome/)
-
 [![](https://img.shields.io/badge/chromedriver-v92.0.4515.107-cyan)](https://chromedriver.storage.googleapis.com/index.html?path=92.0.4515.107/)
 
 ## Features
