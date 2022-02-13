@@ -68,6 +68,10 @@ then for connecting to your aternos account you need the cookies of that page. F
     "one": {
       "name": "ATERNOS_SESSION",
       "value": "<Your aternos session cookie>"
+    },
+    "two": {
+      "name": "ATERNOS_LANGUAGE",
+      "value": "en"
     }
   }
 }
