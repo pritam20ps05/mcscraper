@@ -92,5 +92,7 @@ async def on_command_error(ctx, error):
         await ctx.send("Such a command do not exist")
     elif isinstance(error, commands.MissingRequiredArgument):
         await ctx.send("Please mention a server number e.g. 1")
+    else:
+        print(error)
 
 bot.run(credentials["secret_key"])
