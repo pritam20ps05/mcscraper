@@ -12,13 +12,13 @@ MCScraper is a server side friendly discord bot made on python with selenium and
 #### bot functions
 $list-servers: lists all the servers that it can control
 
-$status <server index no>: displays the current status of the mentioned status
+$status [server index no]: displays the current status of the mentioned status
 
-$getinfo <server index no>: displays all the possible info about the mentioned server
+$getinfo [server index no]: displays all the possible info about the mentioned server
 
-$start <server index no>: starts the mentioned server 
+$start [server index no]: starts the mentioned server 
 
-$stop <server index no>: stops the mentioned server
+$stop [server index no]: stops the mentioned server
 
 ![discord screenshot](https://user-images.githubusercontent.com/49360491/131210242-d85306ad-9b05-49bc-869f-3c097909eaa8.png)
 
