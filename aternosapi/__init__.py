@@ -4,6 +4,7 @@ import undetected_chromedriver as uc
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import WebDriverException, NoSuchElementException
 
 chrome_options = uc.ChromeOptions()
 chrome_options.add_argument("--headless")
@@ -44,15 +45,21 @@ class AternosAPI():
         return status
 
     def StartServer(self):
-        button = self.driver.find_element(By.ID, "start")
+        # This code block is meant to solve the current privacy policy issue with european servers
+        try:
+            self.driver.find_element(By.ID, "accept-choices").click()
+            print("European client detected")
+        except NoSuchElementException:
+            pass
+            
         if (status := self.driver.find_element(By.CLASS_NAME, "statuslabel-label")).text == "Offline":
-            button.click()
+            self.driver.find_element(By.ID, "start").click()
+            # If somehow EULA error occurs there is no cure to it still
             f = False
             while "Online" not in status.text: 
                 if "Waiting in queue" in status.text and not f:
                     WebDriverWait(self.driver, 100).until(EC.element_to_be_clickable((By.XPATH, '/html/body/div[2]/main/div/div/div/header/span'))).click()
-                    button = WebDriverWait(self.driver, 300).until(EC.element_to_be_clickable((By.ID, 'confirm')))
-                    button.click()
+                    WebDriverWait(self.driver, 300).until(EC.element_to_be_clickable((By.ID, 'confirm'))).click()
                     f = True
                 else:
                     if "Loading" in status.text:
@@ -68,9 +75,15 @@ class AternosAPI():
             return "server is already online"
 
     def StopServer(self):
-        button = self.driver.find_element(By.ID, "stop")
+        # This code block is meant to solve the current privacy policy issue with european servers
+        try:
+            self.driver.find_element(By.ID, "accept-choices").click()
+            print("European client detected")
+        except NoSuchElementException:
+            pass
+
         if (status := self.driver.find_element(By.CLASS_NAME, "statuslabel-label")).text == "Online":
-            button.click()
+            self.driver.find_element(By.ID, "stop").click()
             while "Offline" not in status.text:
                 if "Saving" in status.text:
                     return "server stopped"
