@@ -2,11 +2,22 @@
 # import discord
 from discord.ext import commands
 from aternosapi import AternosAPI
-from os import getcwd
+from os import getcwd, environ
 from json import load, dumps
 
-with open(getcwd()+"/credentials.json") as creds:
-    credentials = load(creds)
+credentials = {
+    "secret_key": environ["BOT_TOKEN"],
+    "common_cookies": {
+        "one": {
+            "name": "ATERNOS_SESSION",
+            "value": environ["ATERNOS_SESSION_KEY"]
+        },
+        "two": {
+            "name": "ATERNOS_LANGUAGE",
+            "value": "en"
+        }
+    }
+}
 
 with open(getcwd()+"/servers.json") as srvs:
     servers = load(srvs)
