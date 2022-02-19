@@ -1,5 +1,6 @@
 # import requests
 # from bs4 import BeautifulSoup
+from os import environ
 import undetected_chromedriver as uc
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -7,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import WebDriverException, NoSuchElementException
 
 chrome_options = uc.ChromeOptions()
+chrome_options.binary_location = environ["GOOGLE_CHROME_BIN"]
 chrome_options.add_argument("--headless")
 chrome_options.add_argument('--disable-gpu')
 chrome_options.add_argument('--no-sandbox')
@@ -16,7 +18,7 @@ chrome_options.add_argument("--blink-settings=imagesEnabled=false")
 
 class AternosAPI():
     def __init__(self, common_cookies, srvcookie=None):
-        self.driver = uc.Chrome(options=chrome_options)
+        self.driver = uc.Chrome(executable_path=environ["CHROMEDRIVER_BIN"], options=chrome_options)
         self.driver.get("http://aternos.org/s")
         self.driver.delete_all_cookies()
         for cookie in common_cookies:
