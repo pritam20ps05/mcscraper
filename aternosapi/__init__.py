@@ -32,6 +32,7 @@ class AternosAPI():
     def ServerUpdate(self):
         server_infos = self.driver.find_elements(By.CLASS_NAME, "server-infos")
         sj = {}
+        self.driver.save_screenshot("screenshot.png") # Debug code
         for server_info in server_infos:
             sj[server_info.find_element(By.CLASS_NAME, "server-title").find_element(By.CLASS_NAME, "server-name").text] = {
                 "server_cookie": {
